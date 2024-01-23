@@ -22,11 +22,6 @@ db_manager = DatabaseManager(DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD)
 APP = FastAPI()
 
 
-@APP.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
 @APP.get("/messages")
 def get_all_messages():
     # Retrieve all messages from the database
