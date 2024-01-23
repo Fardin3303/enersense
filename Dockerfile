@@ -1,4 +1,6 @@
 
+# This Dockerfile is used to build a Docker image based on the python:3.8-slim-buster base image.
+# It sets up the environment for running Python applications.
 FROM python:3.8-slim-buster
 
 # Install basic dependencies

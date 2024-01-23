@@ -23,3 +23,4 @@ To run the application, follow these steps:
 The application provides the following REST endpoint:
 
 - `GET /messages`: Retrieves all messages from the database.
+- Documentation for the API is available at `http://localhost:8000/docs`

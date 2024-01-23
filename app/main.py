@@ -5,12 +5,14 @@ import threading
 
 from rest_api import APP
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 LOGGER = logging.getLogger(__name__)
 
 
-def start_mqtt_subscriber():
-    # Start MQTT subscriber to listen to messages
+def start_mqtt_subscriber() -> None:
+    """
+    Start MQTT subscriber to listen to messages.
+    """
     mqtt_subscriber.start_subscriber()
 
 
@@ -21,5 +23,9 @@ if __name__ == "__main__":
     mqtt_thread.start()
 
     # Start FastAPI application
-    LOGGER.info("Starting FastAPI server...")
-    uvicorn.run(APP, host="0.0.0.0", port=8000)
+    LOGGER.info("Starting FastAPI server")
+    try:
+        uvicorn.run(APP, host="0.0.0.0", port=8000)
+    except Exception as e:
+        LOGGER.error("Error starting FastAPI server: %s", str(e))
+        raise e

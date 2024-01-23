@@ -1,3 +1,20 @@
+"""
+This module contains constants used in the application.
+
+- DB_HOST: The hostname of the PostgreSQL database server.
+- DB_PORT: The port number of the PostgreSQL database server.
+- DB_NAME: The name of the database to connect to.
+- DB_USER: The username to use for authentication.
+- DB_PASSWORD: The password to use for authentication.
+
+- MQTT_BROKER_HOST: The hostname of the MQTT broker.
+- MQTT_BROKER_PORT: The port number of the MQTT broker.
+- MQTT_TOPIC: The topic to subscribe to for MQTT messages.
+
+- SAMPLE_PAYLOAD: A sample payload for testing purposes.
+"""
+
+
 # Database connection parameters
 DB_HOST = "postgres-db"
 DB_PORT = 5432
