@@ -137,11 +137,11 @@ def start_subscriber() -> None:
         client.connect(MQTT_BROKER_HOST, MQTT_BROKER_PORT, 60)
         # Loop in the background to handle MQTT events
         client.loop_start()
-        # Publish new sessions every 5 seconds
+        # Publish new sessions every 60 seconds
         while True:
             try:
                 client.publish(MQTT_TOPIC, payload=str(SAMPLE_PAYLOAD))
-                time.sleep(5)
+                time.sleep(60)
                 LOGGER.info("Published new session.")
             except Exception as e:
                 LOGGER.info(f"Error publishing message: {str(e)}")
