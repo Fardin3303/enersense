@@ -3,17 +3,6 @@
 # It sets up the environment for running Python applications.
 FROM python:3.8-slim-buster
 
-# Install basic dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libssl-dev \
-    libffi-dev \
-    python3-dev \
-    python3-pip \
-    python3-setuptools \
-    python3-venv \
-    && apt-get clean
-
 # Set the working directory
 WORKDIR /app
 
