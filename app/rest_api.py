@@ -3,6 +3,7 @@ from fastapi import FastAPI, HTTPException
 import logging
 
 from database_manager import DatabaseManager
+from models import Message
 from fastapi.responses import ORJSONResponse
 from constants import (
     DB_HOST,
@@ -50,7 +51,7 @@ APP = FastAPI(
     response_model=Dict,
     response_class=ORJSONResponse,
 )
-def get_all_messages() -> Union[Dict, ORJSONResponse]:
+def get_all_messages() -> Union[Message, ORJSONResponse]:
     """
     Retrieves all messages from the database.
 
