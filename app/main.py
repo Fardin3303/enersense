@@ -19,8 +19,12 @@ def start_mqtt_subscriber() -> None:
 if __name__ == "__main__":
     # Create a separate thread for the MQTT subscriber
     # so that it doesn't block the main thread
-    mqtt_thread = threading.Thread(target=start_mqtt_subscriber)
-    mqtt_thread.start()
+    try:
+        mqtt_thread = threading.Thread(target=start_mqtt_subscriber)
+        mqtt_thread.start()
+    except Exception as e:
+        LOGGER.error("Error starting MQTT subscriber: %s", str(e))
+        raise e
 
     # Start FastAPI application
     LOGGER.info("Starting FastAPI server")
