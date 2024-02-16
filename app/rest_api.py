@@ -1,7 +1,9 @@
+from typing import Dict, Union
 from fastapi import FastAPI, HTTPException
 import logging
 
 from database_manager import DatabaseManager
+from fastapi.responses import ORJSONResponse
 from constants import (
     DB_HOST,
     DB_PORT,
@@ -45,8 +47,10 @@ APP = FastAPI(
     "/messages",
     summary="Retrieve All Messages",
     response_description="All messages retrieved.",
+    response_model=Dict,
+    response_class=ORJSONResponse,
 )
-def get_all_messages() -> dict:
+def get_all_messages() -> Union[Dict, ORJSONResponse]:
     """
     Retrieves all messages from the database.
 
@@ -63,3 +67,19 @@ def get_all_messages() -> dict:
     except Exception as e:
         LOGGER.error("Error retrieving messages from the database: %s", str(e))
         raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+# Add a health check endpoint
+@APP.get(
+    "/health",
+    summary="Health Check",
+    response_description="Health check response.",
+)
+def health_check() -> dict:
+    """
+    Performs a health check and returns a response.
+
+    Returns:
+        dict: A dictionary containing the health check response.
+    """
+    return {"status": "ok"}
