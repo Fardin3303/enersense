@@ -1,6 +1,5 @@
 import paho.mqtt.client as mqtt
 import time
-import traceback
 import logging
 from datetime import datetime
 
@@ -73,7 +72,6 @@ def on_message(client: mqtt.Client, userdata: any, msg: mqtt.MQTTMessage) -> Non
         db_manager.store_message(payload)
     except Exception as e:
         LOGGER.info(f"Error handling message: {str(e)}")
-        traceback.LOGGER.info_exc()
 
 
 def on_disconnect(client: mqtt.Client, userdata: any, rc: int) -> None:
@@ -144,12 +142,9 @@ def start_subscriber() -> None:
                 time.sleep(60)
                 LOGGER.info("Published new session.")
             except Exception as e:
-                LOGGER.info(f"Error publishing message: {str(e)}")
-                traceback.LOGGER.info_exc()
+                LOGGER.exception(f"Error publishing message: {str(e)}")
     except Exception as e:
         LOGGER.exception(f"Unexpected error: {str(e)}")
-        traceback.LOGGER.info_exc()
-    finally:
         # Ensure a graceful shutdown
         client.disconnect()
         client.loop_stop()
