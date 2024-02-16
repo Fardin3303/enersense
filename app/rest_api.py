@@ -10,10 +10,8 @@ from constants import (
     DB_PASSWORD,
 )
 
-
 logging.basicConfig(level=logging.INFO)
 LOGGER = logging.getLogger(__name__)
-
 
 # Create an instance of DatabaseManager
 try:
@@ -22,11 +20,32 @@ except Exception as e:
     LOGGER.error("Error connecting to the database: %s", str(e))
     raise e
 
+# FastAPI instance with description
+APP = FastAPI(
+    title="Message Retrieval API",
+    description="This API allows users to retrieve messages from the database.",
+    responses={
+        200: {"description": "Success"},
+        201: {"description": "Created"},
+        204: {"description": "No Content"},
+        400: {"description": "Bad Request"},
+        401: {"description": "Unauthorized"},
+        403: {"description": "Forbidden"},
+        404: {"description": "Not Found"},
+        405: {"description": "Method Not Allowed"},
+        429: {"description": "Too Many Requests"},
+        500: {"description": "Internal Server Error"},
+        503: {"description": "Service Unavailable"},
+        422: {"description": "Validation Error"},
+    },
+)
 
-APP = FastAPI()
 
-
-@APP.get("/messages")
+@APP.get(
+    "/messages",
+    summary="Retrieve All Messages",
+    response_description="All messages retrieved.",
+)
 def get_all_messages() -> dict:
     """
     Retrieves all messages from the database.
